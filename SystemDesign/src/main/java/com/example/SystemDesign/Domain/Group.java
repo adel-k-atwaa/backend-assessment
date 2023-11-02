@@ -15,7 +15,7 @@ public class Group {
     @Column(nullable = false,unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group",fetch = FetchType.EAGER)
     private List<Item> items;
 
     public Long getId() {

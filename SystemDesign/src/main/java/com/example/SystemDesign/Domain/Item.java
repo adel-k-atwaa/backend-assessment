@@ -1,5 +1,7 @@
 package com.example.SystemDesign.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -24,14 +26,18 @@ public class Item {
 
 
     @ManyToOne
-    @JoinColumn(name = "permission_group_id",referencedColumnName = "id")
+    @JoinColumn(name = "permission_group_id")
+    @JsonIgnoreProperties(value = {"items"},allowSetters = true)
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id",referencedColumnName = "id")
+    @JoinColumn(name = "parent_id")
+    @JsonIgnore
     private Item parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent")
+    @JsonIgnoreProperties(value = {"childes"})
+    @JsonIgnore
     private List<Item> childes;
 
     @OneToOne(mappedBy = "item",cascade = CascadeType.ALL)
