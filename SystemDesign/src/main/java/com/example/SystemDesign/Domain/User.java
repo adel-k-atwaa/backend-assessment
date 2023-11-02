@@ -1,5 +1,6 @@
 package com.example.SystemDesign.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class User implements UserDetails {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "group_id",referencedColumnName = "id",nullable = false)
+    @JsonIgnore
     private Group group;
 
     @Column(name = "permission_level",nullable = false)
@@ -84,17 +86,17 @@ public class User implements UserDetails {
 
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    public Group getGroup() {
-//        return group;
-//    }
-//
-//    public void setGroup(Group group) {
-//        this.group = group;
-//    }
 
     public Permission getPermission() {
         return permission;
@@ -110,4 +112,14 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(permission.name()));
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", group=" + group +
+                ", permission=" + permission +
+                '}';
+    }
 }
