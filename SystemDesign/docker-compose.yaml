@@ -1,19 +1,4 @@
 services:
-  spring-app:
-    container_name: system-design-app
-    build: ./
-    image: system-design-app:latest
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/your-database-name
-      SPRING_DATASOURCE_USERNAME: sys_user
-      SPRING_DATASOURCE_PASSWORD: TestPass2023
-    volumes:
-      - /app
-    ports:
-      - "3000:3000"  # Assuming your Spring Boot app runs on port 8080
-    networks:
-      - db
-    restart: unless-stopped
   db:
     container_name: system-design-db
     image: postgres
